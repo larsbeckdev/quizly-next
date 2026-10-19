@@ -1,5 +1,6 @@
 import { Logo } from "@/components/brand/logo"
 import { SiteFooter } from "@/components/layout/site-footer"
+import { ThemeToggle } from "@/components/layout/theme-toggle"
 
 export default function LegalLayout({
   children,
@@ -9,8 +10,9 @@ export default function LegalLayout({
   return (
     <div className="flex min-h-dvh flex-col">
       <header className="border-b border-border/60 bg-surface-sunken">
-        <div className="mx-auto flex h-16 w-full max-w-[1440px] items-center px-4 sm:px-6">
+        <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-4 sm:px-6">
           <Logo href="/" />
+          <ThemeToggle />
         </div>
       </header>
 
