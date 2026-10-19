@@ -13,29 +13,29 @@ export default function ImprintPage() {
 
       <section className="grid gap-3">
         <h2 className="font-heading text-lg font-semibold">
-          Angaben gemäß § 5 TMG
+          Angaben gemäß § 5 DDG
         </h2>
         <address className="grid gap-1 text-sm text-muted-foreground not-italic">
           <p>
-            <strong className="text-foreground">Name:</strong> Max Mustermann
+            <strong className="text-foreground">Name:</strong> [Vorname Nachname]
           </p>
           <p>
-            <strong className="text-foreground">Anschrift:</strong> Musterstraße
-            1, 12345 Musterstadt
+            <strong className="text-foreground">Anschrift:</strong> [Straße
+            Hausnummer], [PLZ Ort]
           </p>
           <p>
             <strong className="text-foreground">Telefon:</strong>{" "}
-            <a href="tel:+4912345678" className="text-primary hover:underline">
-              +49 123 45678
+            <a href="tel:+490000000000" className="text-primary hover:underline">
+              [Telefonnummer]
             </a>
           </p>
           <p>
             <strong className="text-foreground">E-Mail:</strong>{" "}
             <a
-              href="mailto:info@example.com"
+              href="mailto:kontakt@example.com"
               className="text-primary hover:underline"
             >
-              info@example.com
+              [E-Mail-Adresse]
             </a>
           </p>
         </address>
@@ -55,8 +55,8 @@ export default function ImprintPage() {
       <section className="grid gap-3">
         <h2 className="font-heading text-lg font-semibold">Hinweis</h2>
         <p className="text-sm leading-relaxed text-muted-foreground">
-          Coderr ist ein Lernprojekt. Es werden keine echten Aufträge vermittelt
-          und keine Zahlungen abgewickelt.
+          Quizly ist ein Lernprojekt der Developer Akademie. Die Angaben in
+          eckigen Klammern sind Platzhalter für die Daten des Betreibers.
         </p>
       </section>
     </article>
