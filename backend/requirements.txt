@@ -1,0 +1,18 @@
+Django==6.1.2
+djangorestframework==3.18.3
+djangorestframework-simplejwt==5.5.1
+django-cors-headers==4.9.0
+python-dotenv==1.2.4
+
+# Production server and static files for the admin in the container
+gunicorn==26.2.0
+whitenoise==6.12.0
+
+# Quiz generation: YouTube download, local transcription, Gemini Flash
+yt-dlp==2025.7.21
+openai-whisper==20250625
+google-genai==2.31.0
+
+# Development tooling: test coverage and PEP 8 linting
+coverage==7.16.2
+flake8==7.4.1
