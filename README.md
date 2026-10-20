@@ -1,18 +1,19 @@
 # Quizly
 
-Turns YouTube videos into quizzes, with a Django REST API ([backend/](backend/)) and a Next.js frontend (`frontend/`, in progress).
+Turns YouTube videos into quizzes, with a Django REST API ([backend/](backend/)) and a Next.js frontend ([frontend/](frontend/)).
 
 A user pastes a YouTube link, the backend downloads the audio with yt_dlp and FFmpeg, transcribes it locally with Whisper and lets Gemini Flash write ten multiple choice questions. Authentication uses JWT in HTTP-only cookies.
 
-For local development without Docker, follow [backend/README.md](backend/README.md). Everything below describes the Docker Compose stack that runs it on a server.
+For local development without Docker, follow [backend/README.md](backend/README.md) and [frontend/README.md](frontend/README.md). Everything below describes the Docker Compose stack that runs it on a server.
 
 ## Docker Compose stack
 
 | Service | Port | Role |
 | --- | --- | --- |
 | `api` | `3070` | Django behind gunicorn, serving `/api/`, `/admin/` and its own static files. FFmpeg is part of the image. |
+| `web` | `3071` | Next.js in standalone mode. The browser talks to the API directly, not through this container. |
 
-The frontend service on port `3071` follows together with the Next.js frontend.
+Open the frontend and the API under the same host name, for example both on `http://<host>:3071` and `http://<host>:3070`. The auth cookies are `SameSite=Lax`, and with a different host name the browser drops them. The frontend therefore builds the API URL from the host it was opened with plus `API_PORT`.
 
 ### Start
 
@@ -23,7 +24,7 @@ python -c "import secrets; print(secrets.token_urlsafe(50))"   # -> DJANGO_SECRE
 docker compose up -d --build
 ```
 
-Compose refuses to start without `DJANGO_SECRET_KEY` and `GEMINI_API_KEY`. The API is then on `http://<host>:3070/api/`.
+Compose refuses to start without `DJANGO_SECRET_KEY` and `GEMINI_API_KEY`. The app is then on `http://<host>:3071`, the API on `http://<host>:3070/api/`.
 
 `migrate` and `collectstatic` run automatically on every start of the `api` container.
 
@@ -38,7 +39,9 @@ All of it lives in `.env`, see [.env.example](.env.example) for the full list wi
 | `DJANGO_SECRET_KEY` | — | Required. |
 | `GEMINI_API_KEY` | — | Required. |
 | `WHISPER_MODEL` | `base` | `tiny` is faster, `small` and up are more accurate and much slower on a CPU. |
-| `API_PORT` | `3070` | Host port of the API. |
+| `API_PORT` | `3070` | Host port of the API. Also baked into the frontend build. |
+| `WEB_PORT` | `3071` | Host port of the frontend. |
+| `NEXT_PUBLIC_API_BASE_URL` | empty | Full API URL, only needed when the API is not on `<same host>:<API_PORT>`. Needs a rebuild. |
 | `GUNICORN_WORKERS` | `2` | Every worker holds its own Whisper model in memory and is blocked while it generates a quiz. |
 | `GUNICORN_TIMEOUT` | `900` | Seconds a quiz request may take before gunicorn kills the worker. |
 | `DJANGO_ALLOWED_HOSTS` | `*` | Comma separated. Narrow this once the host name is fixed. |
