@@ -8,7 +8,7 @@ export function SiteFooter({ className }: { className?: string }) {
     <footer
       className={cn("border-t border-border bg-surface-sunken", className)}
     >
-      <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-4 px-4 py-8 sm:px-6 md:flex-row md:items-center md:justify-between">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-4 py-8 sm:px-6 md:flex-row md:items-center md:justify-between">
         <Logo size={24} />
 
         <p className="text-xs text-muted-foreground">
